@@ -8,7 +8,7 @@ Active,fcitx5-bamboo,https://github.com/fcitx/fcitx5-bamboo,Fcitx5,Weng Xuetian,
 Active,vietc,https://github.com/vndangkhoa/vietc,Standalone (Wayland),Võ Đăng Khoa,Rust,60,MIT,2026-10-06,2026-06-29,Linux
 Active,Funput,https://github.com/Funput/Funput,Fcitx5 / IBus,Funput,Kotlin,48,MIT,2026-10-15,2026-06-14,Linux
 Active,skey,https://github.com/collyn/skey,Fcitx5,Nguyễn Tiến Huy,C++,28,GPL-3.0,2026-10-15,2026-06-29,Linux
-Active,Areca IME,https://github.com/xhkzeroone/ArecaIME,Fcitx5,Hồng Kim Xuân,C++,16,MIT,2026-10-15,2026-07-31,Linux
+Active,Areca IME,https://github.com/xhkzeroone/ArecaIME,Fcitx5,Hồng Kim Xuân,C++,17,MIT,2026-10-15,2026-07-31,Linux
 Active,UniLume,https://github.com/dismonjames/UniLume,Fcitx5,Lê Hùng Quang Minh,Makefile,12,,2026-08-07,2026-07-23,Linux
 Active,Ngó Sen,https://github.com/ngosen/ngosen,Fcitx5,Phi Nguyễn,C++,11,GPL-3.0,2026-10-15,2026-10-10,Linux
 Active,BambooMintKey,https://github.com/thatislg/BambooMintKey,Fcitx5,Dương Gia Long,C#,10,MIT,2026-10-14,2026-09-01,Linux
