@@ -1,0 +1,69 @@
+name: Suggest a Vietnamese IME
+description: Submit a new open-source Vietnamese Input Method Editor to the tracker
+title: "feat(ime): add [IME Name]"
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping keep the Vietnamese IME directory up to date. Please fill in the details below.
+
+  - type: input
+    id: repo_url
+    attributes:
+      label: GitHub Repository URL
+      description: The full URL to the public GitHub repository.
+      placeholder: https://github.com/owner/repository
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: IME Name
+      description: The display name of the input method editor.
+      placeholder: e.g. fcitx5-lotus
+    validations:
+      required: true
+
+  - type: dropdown
+    id: framework
+    attributes:
+      label: Architecture / Framework
+      description: What framework or architecture does this IME run on?
+      options:
+        - Standalone (Wayland)
+        - Fcitx5
+        - IBus
+        - Standalone (X11)
+        - macOS Native
+        - Windows Native
+        - Other / Cross-platform
+    validations:
+      required: true
+
+  - type: input
+    id: maintainer
+    attributes:
+      label: Maintainer / Author
+      description: Author or organization name.
+      placeholder: e.g. Nguyễn Văn A
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: os
+    attributes:
+      label: Supported Operating System(s)
+      options:
+        - label: Linux
+        - label: macOS
+        - label: Windows
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes
+      description: Any extra details or installation links.
+    validations:
+      required: false

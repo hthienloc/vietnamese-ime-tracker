@@ -1,0 +1,77 @@
+name: Sync IME Data and Deploy Site
+
+on:
+  schedule:
+    # Chạy tự động lúc 00:00 UTC thứ Hai hàng tuần (07:00 sáng Thứ Hai giờ VN)
+    - cron: '0 0 * * 1'
+  workflow_dispatch: # Cho phép bấm chạy thủ công từ GitHub Actions tab
+  push:
+    branches:
+      - main
+    paths:
+      - 'repos.yml'
+      - 'sync.py'
+      - 'index.html'
+      - '.github/workflows/**'
+
+# Giới hạn 1 deployment tại 1 thời điểm
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml
+
+      - name: Run sync script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python sync.py
+
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add bo-go-tieng-viet.csv data.json cache.json
+          if git diff --staged --quiet; then
+            echo "No changes detected."
+          else
+            git commit -m "chore(sync): update repository metrics [skip ci]"
+            git push
+          fi
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+  deploy:
+    needs: sync
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

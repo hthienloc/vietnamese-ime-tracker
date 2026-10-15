@@ -1,0 +1,142 @@
+- name: Areca IME
+  url: https://github.com/xhkzeroone/ArecaIME
+  framework: Fcitx5
+  maintainer: Hồng Kim Xuân
+  os: Linux
+- name: BambooMintKey
+  url: https://github.com/thatislg/BambooMintKey
+  framework: Fcitx5
+  license: MIT
+  maintainer: Dương Gia Long
+  os: Linux
+- name: CanType
+  url: https://github.com/LumeWorks/CanType/
+  framework: Fcitx5
+  maintainer: Lê Hùng Quang Minh
+  os: Linux
+- name: Clak
+  url: https://github.com/versenilvis/ClakIME
+  framework: Fcitx5
+  maintainer: VERSE
+  os: Linux
+- name: codekeyvn
+  url: https://github.com/tollaai2212hp22-lgtm/codekeyvn
+  framework: Standalone (Wayland)
+  maintainer: James Nguyen
+  os: Linux
+- name: fcitx5-bamboo
+  url: https://github.com/fcitx/fcitx5-bamboo
+  framework: Fcitx5
+  license: GPL-3.0
+  maintainer: Weng Xuetian
+  os: Linux
+- name: fcitx5-lilypad
+  url: https://github.com/chiconcota/fcitx5-lilypad
+  framework: Fcitx5
+  maintainer: Lý Tất Thành
+  os: Linux
+- name: fcitx5-lotus
+  url: https://github.com/LotusInputMethod/fcitx5-lotus
+  framework: Fcitx5
+  maintainer: Nguyễn Hoàng Kỳ
+  os: Linux
+- name: fcitx5-unikey
+  url: https://github.com/fcitx/fcitx5-unikey
+  framework: Fcitx5
+  license: GPL-3.0
+  maintainer: Weng Xuetian
+  os: Linux
+- name: Funput
+  url: https://github.com/Funput/Funput
+  framework: Fcitx5 / IBus
+  maintainer: Funput
+  os: Linux
+- name: ibus-bamboo
+  url: https://github.com/BambooEngine/ibus-bamboo
+  framework: IBus
+  maintainer: Lương Thành Lam
+  os: Linux
+- name: ibus-lotus
+  url: https://github.com/LotusInputEngine/ibus-lotus
+  framework: IBus
+  maintainer: LotusInputEngine
+  os: Linux
+- name: LotusVibe
+  url: https://github.com/nguyenphivn/LotusVibe
+  framework: Fcitx5
+  maintainer: Phi Nguyễn
+  os: Linux
+- name: Ngó Sen
+  url: https://github.com/ngosen/ngosen
+  framework: Fcitx5
+  maintainer: Phi Nguyễn
+  os: Linux
+- name: pinakey
+  url: https://github.com/trananhtung/pinakey
+  framework: IBus
+  maintainer: Trần Anh Tùng
+  os: Linux
+- name: SenKey
+  url: https://github.com/furimeo/senkey
+  framework: Fcitx5
+  maintainer: Lê Hùng Quang Minh
+  os: Linux
+- name: skey
+  url: https://github.com/collyn/skey
+  framework: Fcitx5
+  maintainer: Nguyễn Tiến Huy
+  os: Linux
+- name: telebit
+  url: https://github.com/sonnam0904/telebit
+  framework: Fcitx5
+  maintainer: Nguyễn Sơn (Nam?)
+  os: Linux
+- name: TextVN
+  url: https://github.com/hunglinhpt/TextVN
+  framework: Fcitx5 / IBus
+  license: GPL-3.0
+  maintainer: Linh Bùi
+  os: Linux
+- name: TypeVN
+  url: https://github.com/vithanhlam/TypeVN
+  framework: IBus
+  maintainer: Lâm Văn Vi
+  os: Linux
+- name: Unikey-Wayland
+  url: https://github.com/ubuntu2310fake/Unikey-Wayland
+  framework: Standalone (Wayland)
+  license: GPL-3.0
+  maintainer: Trương Hiếu (Phake?)
+  os: Linux
+- name: Unikey-Wayland-Final
+  url: https://github.com/quannguyen247/Unikey-Wayland-Final
+  framework: Standalone (Wayland)
+  license: GPL-3.0
+  maintainer: Quan Nguyen
+  os: Linux
+- name: UniLume
+  url: https://github.com/dismonjames/UniLume
+  framework: Fcitx5
+  maintainer: Lê Hùng Quang Minh
+  os: Linux
+- name: vi-ime
+  url: https://github.com/nhanth87/vi-ime
+  framework: Standalone (Wayland)
+  license: GPL-3.0
+  maintainer: Trần Hữu Nhân
+  os: Linux
+- name: vietc
+  url: https://github.com/vndangkhoa/vietc
+  framework: Standalone (Wayland)
+  maintainer: Võ Đăng Khoa
+  os: Linux
+- name: VMK
+  url: https://github.com/thanhpy2009/VMK
+  framework: Fcitx5
+  maintainer: Võ Ngô Hoàng Thành
+  os: Linux
+- name: vnkey
+  url: https://github.com/marixdev/vnkey
+  framework: Fcitx5 / IBus
+  maintainer: Vũ Văn Đạt
+  os: Linux

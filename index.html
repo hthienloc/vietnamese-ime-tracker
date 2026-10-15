@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vietnamese IME Tracker</title>
+  <meta name="description" content="Thống kê và theo dõi trạng thái các bộ gõ tiếng Việt mã nguồn mở.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Inter"', '-apple-system', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <script>
+    // Initialize theme before render to avoid flash
+    const initialTheme = localStorage.getItem('theme') || 'dark';
+    if (initialTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+</head>
+<body class="bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-200 min-h-screen flex flex-col font-sans antialiased text-sm transition-colors duration-150">
+
+  <!-- Top bar -->
+  <header class="border-b border-zinc-200 bg-white/70 dark:border-zinc-800/80 dark:bg-zinc-900/40 backdrop-blur-sm sticky top-0 z-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div>
+        <h1 class="text-base font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight">Vietnamese IME Tracker</h1>
+        <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">Thống kê và theo dõi trạng thái các bộ gõ tiếng Việt mã nguồn mở</p>
+      </div>
+      <div class="flex items-center gap-4 text-xs text-zinc-500 dark:text-zinc-400">
+        <span id="lastUpdated" class="font-mono text-zinc-400 dark:text-zinc-500">Đang tải...</span>
+        <a href="https://github.com/hthienloc/vietnamese-ime-tracker" target="_blank" rel="noopener noreferrer"
+           class="text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white underline underline-offset-4 transition">
+          GitHub
+        </a>
+        <!-- Theme toggle button -->
+        <button id="themeToggle" type="button" aria-label="Toggle theme" title="Chuyển chế độ sáng / tối"
+                class="p-1.5 rounded border border-zinc-300 dark:border-zinc-800 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition">
+          <svg id="iconSun" class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>
+          <svg id="iconMoon" class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main container -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex-1 w-full space-y-4">
+
+    <!-- OS Tabs & View Toggle -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-zinc-200 dark:border-zinc-800/60">
+      <div class="flex items-center gap-1.5" id="osTabs">
+        <button class="os-tab px-3 py-1 rounded text-xs font-medium bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100 transition" data-os="Linux">
+          Linux (<span id="linuxCount">0</span>)
+        </button>
+        <button class="os-tab px-3 py-1 rounded text-xs font-medium text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 transition" data-os="macOS">
+          macOS <span class="text-[10px] text-zinc-400 dark:text-zinc-500 uppercase tracking-wider ml-1">Planned</span>
+        </button>
+        <button class="os-tab px-3 py-1 rounded text-xs font-medium text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 transition" data-os="Windows">
+          Windows <span class="text-[10px] text-zinc-400 dark:text-zinc-500 uppercase tracking-wider ml-1">Planned</span>
+        </button>
+      </div>
+
+      <!-- Right controls: View Toggle -->
+      <div class="flex items-center gap-3">
+        <div class="inline-flex rounded border border-zinc-300 dark:border-zinc-800 p-0.5 bg-zinc-200/60 dark:bg-zinc-900 text-xs">
+          <button id="btnViewTable" class="px-2.5 py-1 rounded font-medium bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-sm transition">
+            Bảng
+          </button>
+          <button id="btnViewCharts" class="px-2.5 py-1 rounded font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition">
+            Biểu đồ
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Planned OS Notice -->
+    <div id="plannedBanner" class="hidden py-12 text-center border border-dashed border-zinc-300 dark:border-zinc-800 rounded-lg text-zinc-500 dark:text-zinc-400 bg-white/40 dark:bg-transparent">
+      <p class="font-medium text-zinc-800 dark:text-zinc-300">Đang tổng hợp dữ liệu</p>
+      <p class="text-xs text-zinc-500 mt-1">Danh sách cho nền tảng này sẽ sớm được cập nhật. Bạn có thể mở Issue hoặc PR để đề xuất.</p>
+    </div>
+
+    <!-- Active Content Area -->
+    <div id="activeContent" class="space-y-3">
+
+      <!-- View 1: Table Section -->
+      <section id="sectionTable" class="space-y-3">
+        <!-- Search input and Active filters summary -->
+        <div class="flex flex-col sm:flex-row gap-3 items-center justify-between">
+          <div class="w-full sm:w-80">
+            <input id="searchInput" type="text" placeholder="Tìm kiếm nhanh tên, tác giả, ngôn ngữ..."
+                   class="w-full bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 rounded px-3 py-1.5 text-xs text-zinc-900 dark:text-zinc-200 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:border-zinc-500 dark:focus:border-zinc-600 transition">
+          </div>
+
+          <div class="text-[11px] text-zinc-500 flex items-center gap-2">
+            <span>Bấm vào tiêu đề cột để lọc hoặc sắp xếp</span>
+            <button id="resetAllFiltersBtn" class="hidden text-blue-600 dark:text-blue-400 hover:underline font-medium">
+              (Xóa bộ lọc)
+            </button>
+          </div>
+        </div>
+
+        <!-- Table Container -->
+        <div class="border border-zinc-200 dark:border-zinc-800/80 rounded-lg bg-white dark:bg-zinc-900/20 shadow-sm dark:shadow-none">
+          <div class="overflow-x-auto overflow-y-visible">
+            <table class="w-full text-left text-xs table-fixed min-w-[720px]">
+              <thead class="border-b border-zinc-200 dark:border-zinc-800/80 text-zinc-500 dark:text-zinc-400 font-medium bg-zinc-50/80 dark:bg-zinc-900/50 select-none">
+                <tr>
+                  <!-- Header: Status (Filterable) -->
+                  <th class="py-2 px-3 w-28">
+                    <select id="selectStatus" onchange="applyColumnFilter('status', this.value)"
+                            class="bg-transparent font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer text-xs focus:outline-none transition py-0.5 w-full">
+                      <option value="">Status</option>
+                    </select>
+                  </th>
+
+                  <!-- Header: Name (Sortable) -->
+                  <th class="py-2 px-3 w-40 cursor-pointer hover:text-zinc-900 dark:hover:text-zinc-100 transition select-none" onclick="toggleSort('name')">
+                    <div class="flex items-center gap-1 font-medium truncate">
+                      <span>Tên bộ gõ</span>
+                      <span id="sortIconName" class="text-zinc-400 text-[10px]">↕</span>
+                    </div>
+                  </th>
+
+                  <!-- Header: Framework (Filterable) -->
+                  <th class="py-2 px-3 w-36">
+                    <select id="selectFramework" onchange="applyColumnFilter('framework', this.value)"
+                            class="bg-transparent font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer text-xs focus:outline-none transition py-0.5 w-full">
+                      <option value="">Framework</option>
+                    </select>
+                  </th>
+
+                  <!-- Header: Author (Filterable) -->
+                  <th class="py-2 px-3 w-44">
+                    <select id="selectMaintainer" onchange="applyColumnFilter('maintainer', this.value)"
+                            class="bg-transparent font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer text-xs focus:outline-none transition py-0.5 w-full truncate">
+                      <option value="">Tác giả</option>
+                    </select>
+                  </th>
+
+                  <!-- Header: Language (Filterable) -->
+                  <th class="py-2 px-3 w-24">
+                    <select id="selectLanguage" onchange="applyColumnFilter('language', this.value)"
+                            class="bg-transparent font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer text-xs focus:outline-none transition py-0.5 w-full">
+                      <option value="">Ngôn ngữ</option>
+                    </select>
+                  </th>
+
+                  <!-- Header: License (Filterable) -->
+                  <th class="py-2 px-3 w-24">
+                    <select id="selectLicense" onchange="applyColumnFilter('license', this.value)"
+                            class="bg-transparent font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer text-xs focus:outline-none transition py-0.5 w-full">
+                      <option value="">License</option>
+                    </select>
+                  </th>
+
+                  <!-- Header: Stars (Sortable) -->
+                  <th class="py-2.5 px-3 w-20 text-right cursor-pointer hover:text-zinc-900 dark:hover:text-zinc-100 transition font-medium" onclick="toggleSort('stars')">
+                    <div class="inline-flex items-center gap-1 justify-end">
+                      <span>Stars</span>
+                      <span id="sortIconStars" class="text-zinc-400 text-[10px]">▼</span>
+                    </div>
+                  </th>
+
+                  <!-- Header: Last Commit (Sortable) -->
+                  <th class="py-2.5 px-3 w-28 text-right cursor-pointer hover:text-zinc-900 dark:hover:text-zinc-100 transition font-medium" onclick="toggleSort('update')">
+                    <div class="inline-flex items-center gap-1 justify-end">
+                      <span>Commit cuối</span>
+                      <span id="sortIconUpdate" class="text-zinc-400 text-[10px]">↕</span>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="tableBody" class="divide-y divide-zinc-200 dark:divide-zinc-800/60 font-mono text-[12px]"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Empty state -->
+        <div id="emptyState" class="hidden text-center py-10 text-zinc-400 dark:text-zinc-500 text-xs">
+          Không có bộ gõ nào khớp với bộ lọc hiện tại.
+        </div>
+      </section>
+
+      <!-- View 2: Charts Section -->
+      <section id="sectionCharts" class="hidden space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+          <!-- Chart 1: Top Starred Projects -->
+          <div class="border border-zinc-200 dark:border-zinc-800/80 rounded-lg p-4 bg-white dark:bg-zinc-900/30">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">Top Stars (Độ phổ biến)</h2>
+              <span class="text-[11px] text-zinc-400">8 dự án dẫn đầu</span>
+            </div>
+            <div class="h-64">
+              <canvas id="chartTopStars"></canvas>
+            </div>
+          </div>
+
+          <!-- Chart 2: Framework Distribution -->
+          <div class="border border-zinc-200 dark:border-zinc-800/80 rounded-lg p-4 bg-white dark:bg-zinc-900/30">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">Phân bố Kiến trúc (Framework)</h2>
+              <span class="text-[11px] text-zinc-400">Fcitx5 vs IBus vs Standalone</span>
+            </div>
+            <div class="h-64 flex items-center justify-center">
+              <canvas id="chartFrameworks"></canvas>
+            </div>
+          </div>
+
+          <!-- Chart 3: Programming Languages -->
+          <div class="border border-zinc-200 dark:border-zinc-800/80 rounded-lg p-4 bg-white dark:bg-zinc-900/30">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">Ngôn ngữ lập trình chính</h2>
+              <span class="text-[11px] text-zinc-400">Số lượng repository</span>
+            </div>
+            <div class="h-64">
+              <canvas id="chartLanguages"></canvas>
+            </div>
+          </div>
+
+          <!-- Chart 4: Project Activity Status -->
+          <div class="border border-zinc-200 dark:border-zinc-800/80 rounded-lg p-4 bg-white dark:bg-zinc-900/30">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">Tình trạng bảo trì (Status)</h2>
+              <span class="text-[11px] text-zinc-400">Dựa theo commit gần nhất</span>
+            </div>
+            <div class="h-64 flex items-center justify-center">
+              <canvas id="chartStatus"></canvas>
+            </div>
+          </div>
+
+          <!-- Chart 5: Timeline / Created Year -->
+          <div class="border border-zinc-200 dark:border-zinc-800/80 rounded-lg p-4 bg-white dark:bg-zinc-900/30">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">Năm khởi tạo (Timeline)</h2>
+              <span class="text-[11px] text-zinc-400">Số lượng repo ra đời theo năm</span>
+            </div>
+            <div class="h-64">
+              <canvas id="chartTimeline"></canvas>
+            </div>
+          </div>
+
+          <!-- Chart 6: License Distribution -->
+          <div class="border border-zinc-200 dark:border-zinc-800/80 rounded-lg p-4 bg-white dark:bg-zinc-900/30">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">Giấy phép phần mềm (License)</h2>
+              <span class="text-[11px] text-zinc-400">GPL-3.0 vs MIT vs MPL...</span>
+            </div>
+            <div class="h-64 flex items-center justify-center">
+              <canvas id="chartLicenses"></canvas>
+            </div>
+          </div>
+
+          <!-- Chart 7: Commit Recency -->
+          <div class="border border-zinc-200 dark:border-zinc-800/80 rounded-lg p-4 bg-white dark:bg-zinc-900/30">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">Thời gian cập nhật gần nhất</h2>
+              <span class="text-[11px] text-zinc-400">Khoảng cách từ commit cuối</span>
+            </div>
+            <div class="h-64">
+              <canvas id="chartRecency"></canvas>
+            </div>
+          </div>
+
+          <!-- Chart 8: Top Maintainers -->
+          <div class="border border-zinc-200 dark:border-zinc-800/80 rounded-lg p-4 bg-white dark:bg-zinc-900/30">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">Tác giả đóng góp nhiều repo nhất</h2>
+              <span class="text-[11px] text-zinc-400">Top maintainers</span>
+            </div>
+            <div class="h-64">
+              <canvas id="chartMaintainers"></canvas>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- Minimal Footer -->
+  <footer class="border-t border-zinc-200 dark:border-zinc-800/60 py-4 mt-auto">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-zinc-500">
+      <span>Tự động cập nhật mỗi tuần qua GitHub Actions.</span>
+      <div class="flex items-center gap-4">
+        <a href="repos.yml" class="hover:text-zinc-800 dark:hover:text-zinc-300 transition">repos.yml</a>
+        <a href="bo-go-tieng-viet.csv" class="hover:text-zinc-800 dark:hover:text-zinc-300 transition">bo-go-tieng-viet.csv</a>
+        <a href="https://github.com/hthienloc/vietnamese-ime-tracker/issues/new?template=add_ime.yml" target="_blank" class="hover:text-zinc-800 dark:hover:text-zinc-300 transition">Đề xuất thêm bộ gõ &rarr;</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let repoData = [];
+    let currentOS = 'Linux';
+    let currentView = 'table';
+    let chartInstances = {};
+
+    // Filters & Sorting state
+    let filters = {
+      status: null,
+      framework: null,
+      maintainer: null,
+      language: null,
+      license: null
+    };
+    let currentSort = { field: 'stars', order: 'desc' }; // 'stars', 'name', 'update'
+    let openMenuId = null;
+
+    // Theme toggle setup
+    const themeBtn = document.getElementById('themeToggle');
+    themeBtn.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      if (currentView === 'charts') {
+        renderCharts();
+      }
+    });
+
+    function isDarkMode() {
+      return document.documentElement.classList.contains('dark');
+    }
+
+    function formatDays(days, archived) {
+      if (archived) return 'archived';
+      if (days === null || days === undefined) return '-';
+      if (days === 0) return 'hôm nay';
+      if (days === 1) return 'hôm qua';
+      if (days < 30) return `${days}d trước`;
+      if (days < 365) return `${Math.floor(days / 30)}mo trước`;
+      return `${Math.floor(days / 365)}y trước`;
+    }
+
+
+    function populateMenu(field, forceRebuild = false) {
+      const selectId = 'select' + field.charAt(0).toUpperCase() + field.slice(1);
+      const select = document.getElementById(selectId);
+      if (!select) return;
+
+      const titles = {
+        status: 'Status',
+        framework: 'Framework',
+        maintainer: 'Tác giả',
+        language: 'Ngôn ngữ',
+        license: 'License'
+      };
+
+      const currentVal = filters[field] || '';
+
+      if (forceRebuild || select.options.length <= 1) {
+        const linuxList = repoData.filter(r => (r.os || 'Linux') === currentOS);
+        let distinctValues = [];
+
+        if (field === 'status') {
+          distinctValues = ['Active', 'Inactive', 'Dead'];
+        } else {
+          distinctValues = Array.from(new Set(linuxList.map(r => r[field]).filter(Boolean))).sort();
+        }
+
+        const baseTitle = titles[field] || field;
+        let html = `<option value="">${baseTitle}</option>`;
+
+        distinctValues.forEach(val => {
+          html += `<option value="${val}">${val}</option>`;
+        });
+
+        select.innerHTML = html;
+      }
+
+      select.value = currentVal;
+
+      if (currentVal) {
+        select.className = "bg-blue-100 dark:bg-blue-950 font-semibold text-blue-700 dark:text-blue-300 cursor-pointer text-xs focus:outline-none py-0.5 px-1.5 rounded border border-blue-300 dark:border-blue-700 w-full truncate";
+      } else {
+        select.className = "bg-transparent font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer text-xs focus:outline-none py-0.5 w-full";
+      }
+    }
+
+    function populateAllMenus(forceRebuild = false) {
+      ['status', 'framework', 'maintainer', 'language', 'license'].forEach(field => {
+        populateMenu(field, forceRebuild);
+      });
+    }
+
+    window.applyColumnFilter = function(field, val) {
+      filters[field] = val || null;
+      populateAllMenus(false);
+      updateResetButtonVisibility();
+      renderTable();
+    };
+
+    window.toggleSort = function(field) {
+      if (currentSort.field === field) {
+        currentSort.order = currentSort.order === 'desc' ? 'asc' : 'desc';
+      } else {
+        currentSort.field = field;
+        currentSort.order = field === 'name' ? 'asc' : 'desc';
+      }
+      updateSortIcons();
+      renderTable();
+    };
+
+    function updateSortIcons() {
+      const f = currentSort.field;
+      const o = currentSort.order;
+
+      document.getElementById('sortIconName').textContent = f === 'name' ? (o === 'asc' ? '▲' : '▼') : '↕';
+      document.getElementById('sortIconStars').textContent = f === 'stars' ? (o === 'asc' ? '▲' : '▼') : '↕';
+      document.getElementById('sortIconUpdate').textContent = f === 'update' ? (o === 'asc' ? '▲' : '▼') : '↕';
+    }
+
+    function updateResetButtonVisibility() {
+      const anyFilterActive = Object.values(filters).some(Boolean);
+      const searchVal = document.getElementById('searchInput').value.trim();
+      const resetBtn = document.getElementById('resetAllFiltersBtn');
+      if (anyFilterActive || searchVal) {
+        resetBtn.classList.remove('hidden');
+      } else {
+        resetBtn.classList.add('hidden');
+      }
+    }
+
+    function resetAllFilters() {
+      Object.keys(filters).forEach(k => filters[k] = null);
+      document.getElementById('searchInput').value = '';
+      populateAllMenus();
+      updateResetButtonVisibility();
+      renderTable();
+    }
+
+    async function init() {
+      try {
+        const res = await fetch('data.json?t=' + Date.now());
+        if (!res.ok) throw new Error('Cannot load data');
+        const json = await res.json();
+        repoData = json.repos || [];
+        document.getElementById('lastUpdated').textContent = json.updated_at ? json.updated_at.split(' ')[0] : '';
+      } catch (e) {
+        console.warn('Fallback data loading failed', e);
+      }
+
+      const linuxList = repoData.filter(r => (r.os || 'Linux') === 'Linux');
+      document.getElementById('linuxCount').textContent = linuxList.length;
+
+      // Pre-populate all column filter dropdowns immediately
+      populateAllMenus();
+
+      // Search event with debounce
+      let searchTimer = null;
+      document.getElementById('searchInput').addEventListener('input', () => {
+        updateResetButtonVisibility();
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(renderTable, 50);
+      });
+
+      document.getElementById('resetAllFiltersBtn').addEventListener('click', resetAllFilters);
+
+      // Table body cell click event: clicking cell also filters that column!
+      document.getElementById('tableBody').addEventListener('click', (e) => {
+        const cell = e.target.closest('[data-cell-filter]');
+        if (cell) {
+          const field = cell.dataset.cellFilter;
+          const val = cell.dataset.cellValue;
+          if (val && val !== '-') {
+            applyColumnFilter(field, val);
+          }
+        }
+      });
+
+      // View switcher buttons
+      const btnTable = document.getElementById('btnViewTable');
+      const btnCharts = document.getElementById('btnViewCharts');
+      const secTable = document.getElementById('sectionTable');
+      const secCharts = document.getElementById('sectionCharts');
+
+      btnTable.addEventListener('click', () => {
+        currentView = 'table';
+        btnTable.className = "px-2.5 py-1 rounded font-medium bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-sm transition";
+        btnCharts.className = "px-2.5 py-1 rounded font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition";
+        secTable.classList.remove('hidden');
+        secCharts.classList.add('hidden');
+        renderTable();
+      });
+
+      btnCharts.addEventListener('click', () => {
+        currentView = 'charts';
+        btnCharts.className = "px-2.5 py-1 rounded font-medium bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-sm transition";
+        btnTable.className = "px-2.5 py-1 rounded font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition";
+        secCharts.classList.remove('hidden');
+        secTable.classList.add('hidden');
+        renderCharts();
+      });
+
+      // OS Tabs
+      document.querySelectorAll('.os-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          currentOS = tab.dataset.os;
+          document.querySelectorAll('.os-tab').forEach(t => {
+            t.classList.remove('bg-zinc-200', 'text-zinc-900', 'dark:bg-zinc-800', 'dark:text-zinc-100');
+            t.classList.add('text-zinc-500', 'dark:text-zinc-400');
+          });
+          tab.classList.add('bg-zinc-200', 'text-zinc-900', 'dark:bg-zinc-800', 'dark:text-zinc-100');
+          tab.classList.remove('text-zinc-500', 'dark:text-zinc-400');
+
+          const plannedBanner = document.getElementById('plannedBanner');
+          const activeContent = document.getElementById('activeContent');
+
+          if (currentOS === 'Linux') {
+            plannedBanner.classList.add('hidden');
+            activeContent.classList.remove('hidden');
+            if (currentView === 'table') renderTable();
+            else renderCharts();
+          } else {
+            plannedBanner.classList.remove('hidden');
+            activeContent.classList.add('hidden');
+          }
+        });
+      });
+
+      updateSortIcons();
+      renderTable();
+    }
+
+    function renderTable() {
+      const query = document.getElementById('searchInput').value.trim().toLowerCase();
+
+      let list = repoData.filter(r => {
+        if ((r.os || 'Linux') !== currentOS) return false;
+        if (filters.status && r.status !== filters.status) return false;
+        if (filters.framework && r.framework !== filters.framework) return false;
+        if (filters.maintainer && r.maintainer !== filters.maintainer) return false;
+        if (filters.language && r.language !== filters.language) return false;
+        if (filters.license && r.license !== filters.license) return false;
+
+        if (query) {
+          const mName = (r.name || '').toLowerCase().includes(query);
+          const mAuthor = (r.maintainer || '').toLowerCase().includes(query);
+          const mLang = (r.language || '').toLowerCase().includes(query);
+          const mFw = (r.framework || '').toLowerCase().includes(query);
+          if (!mName && !mAuthor && !mLang && !mFw) return false;
+        }
+        return true;
+      });
+
+      // Sorting
+      const f = currentSort.field;
+      const order = currentSort.order === 'asc' ? 1 : -1;
+
+      list.sort((a, b) => {
+        if (f === 'stars') return ((a.stars || 0) - (b.stars || 0)) * order;
+        if (f === 'update') return (a.last_update || '').localeCompare(b.last_update || '') * order;
+        if (f === 'name') return (a.name || '').localeCompare(b.name || '') * order;
+        return 0;
+      });
+
+      const tbody = document.getElementById('tableBody');
+      const emptyState = document.getElementById('emptyState');
+
+      if (list.length === 0) {
+        tbody.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+      emptyState.classList.add('hidden');
+
+      tbody.innerHTML = list.map(item => {
+        let statusStyle = 'text-zinc-400 dark:text-zinc-500';
+        let statusText = item.status;
+        if (item.status === 'Active') {
+          statusStyle = 'text-emerald-600 dark:text-emerald-400 font-medium';
+        } else if (item.status === 'Inactive') {
+          statusStyle = 'text-amber-600 dark:text-amber-400 font-medium';
+        } else if (item.status === 'Dead') {
+          statusStyle = 'text-zinc-400 dark:text-zinc-500';
+          if (item.deleted) statusText = 'Dead (deleted)';
+          else if (item.archived) statusText = 'Dead (archived)';
+        }
+
+        return `
+          <tr class="hover:bg-zinc-100/70 dark:hover:bg-zinc-800/40 border-b border-zinc-100 dark:border-zinc-800/40">
+            <td class="py-2 px-3 truncate">
+              <span data-cell-filter="status" data-cell-value="${item.status}" title="Bấm để lọc Status: ${item.status}"
+                    class="cursor-pointer hover:underline ${statusStyle}">
+                ${statusText}
+              </span>
+            </td>
+            <td class="py-2 px-3 font-sans font-medium text-zinc-900 dark:text-zinc-100 truncate">
+              <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="hover:underline hover:text-blue-600 dark:hover:text-white">
+                ${item.name}
+              </a>
+            </td>
+            <td class="py-2 px-3 font-sans truncate">
+              ${item.framework ? `
+                <span data-cell-filter="framework" data-cell-value="${item.framework}" title="Bấm để lọc Framework: ${item.framework}"
+                      class="cursor-pointer hover:underline text-zinc-700 dark:text-zinc-300">
+                  ${item.framework}
+                </span>
+              ` : '-'}
+            </td>
+            <td class="py-2 px-3 font-sans truncate">
+              ${item.maintainer ? `
+                <span data-cell-filter="maintainer" data-cell-value="${item.maintainer}" title="Bấm để lọc Tác giả: ${item.maintainer}"
+                      class="cursor-pointer hover:underline text-zinc-600 dark:text-zinc-400">
+                  ${item.maintainer}
+                </span>
+              ` : '-'}
+            </td>
+            <td class="py-2 px-3 truncate">
+              ${item.language ? `
+                <span data-cell-filter="language" data-cell-value="${item.language}" title="Bấm để lọc Ngôn ngữ: ${item.language}"
+                      class="cursor-pointer hover:underline text-zinc-600 dark:text-zinc-400">
+                  ${item.language}
+                </span>
+              ` : '-'}
+            </td>
+            <td class="py-2 px-3 text-[11px] truncate">
+              ${item.license ? `
+                <span data-cell-filter="license" data-cell-value="${item.license}" title="Bấm để lọc License: ${item.license}"
+                      class="cursor-pointer hover:underline text-zinc-500">
+                  ${item.license}
+                </span>
+              ` : '-'}
+            </td>
+            <td class="py-2 px-3 text-right text-zinc-900 dark:text-zinc-200 font-medium">${item.stars.toLocaleString()}</td>
+            <td class="py-2 px-3 text-right whitespace-nowrap">
+              <span class="text-zinc-800 dark:text-zinc-300 font-mono">${item.last_update || '-'}</span>
+              <span class="text-zinc-400 dark:text-zinc-500 text-[11px] block font-sans">${formatDays(item.days_since_push, item.archived)}</span>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderCharts() {
+      const dark = isDarkMode();
+      const textColor = dark ? '#a1a1aa' : '#52525b';
+      const gridColor = dark ? 'rgba(63, 63, 70, 0.3)' : 'rgba(228, 228, 231, 0.6)';
+      const fontFamily = '"Inter", sans-serif';
+
+      const linuxRepos = repoData.filter(r => (r.os || 'Linux') === currentOS);
+
+      // Clean existing charts
+      Object.keys(chartInstances).forEach(k => {
+        if (chartInstances[k]) chartInstances[k].destroy();
+      });
+
+      // Chart 1: Top 8 Stars (Horizontal Bar)
+      const top8 = [...linuxRepos].sort((a, b) => (b.stars || 0) - (a.stars || 0)).slice(0, 8);
+      const ctxStars = document.getElementById('chartTopStars').getContext('2d');
+      chartInstances.stars = new Chart(ctxStars, {
+        type: 'bar',
+        data: {
+          labels: top8.map(r => r.name),
+          datasets: [{
+            data: top8.map(r => r.stars),
+            backgroundColor: dark ? '#38bdf8' : '#0284c7',
+            borderRadius: 4,
+            barThickness: 14,
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => ` ${ctx.raw.toLocaleString()} stars`
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: gridColor },
+              ticks: { color: textColor, font: { family: fontFamily, size: 10 } }
+            },
+            y: {
+              grid: { display: false },
+              ticks: { color: textColor, font: { family: fontFamily, size: 11, weight: '500' } }
+            }
+          }
+        }
+      });
+
+      // Chart 2: Framework Distribution (Doughnut)
+      const fwCounts = {};
+      linuxRepos.forEach(r => {
+        const fw = r.framework || 'Other';
+        fwCounts[fw] = (fwCounts[fw] || 0) + 1;
+      });
+      const fwLabels = Object.keys(fwCounts);
+      const fwData = Object.values(fwCounts);
+      const ctxFw = document.getElementById('chartFrameworks').getContext('2d');
+      chartInstances.frameworks = new Chart(ctxFw, {
+        type: 'doughnut',
+        data: {
+          labels: fwLabels,
+          datasets: [{
+            data: fwData,
+            backgroundColor: ['#6366f1', '#0ea5e9', '#10b981', '#f59e0b', '#ec4899'],
+            borderWidth: dark ? 2 : 1,
+            borderColor: dark ? '#18181b' : '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { color: textColor, font: { family: fontFamily, size: 11 }, boxWidth: 12, padding: 12 }
+            }
+          },
+          cutout: '68%'
+        }
+      });
+
+      // Chart 3: Programming Languages (Bar)
+      const langCounts = {};
+      linuxRepos.forEach(r => {
+        const l = r.language || 'Other';
+        langCounts[l] = (langCounts[l] || 0) + 1;
+      });
+      const sortedLangs = Object.entries(langCounts).sort((a, b) => b[1] - a[1]);
+      const ctxLang = document.getElementById('chartLanguages').getContext('2d');
+      chartInstances.languages = new Chart(ctxLang, {
+        type: 'bar',
+        data: {
+          labels: sortedLangs.map(x => x[0]),
+          datasets: [{
+            data: sortedLangs.map(x => x[1]),
+            backgroundColor: dark ? '#a855f7' : '#9333ea',
+            borderRadius: 4,
+            barThickness: 20,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => ` ${ctx.raw} dự án`
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: gridColor },
+              ticks: { color: textColor, stepSize: 1, font: { family: fontFamily, size: 10 } }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { color: textColor, font: { family: fontFamily, size: 11 } }
+            }
+          }
+        }
+      });
+
+      // Chart 4: Activity Status (Doughnut)
+      const statusCounts = { Active: 0, Inactive: 0, Dead: 0 };
+      linuxRepos.forEach(r => {
+        if (statusCounts[r.status] !== undefined) statusCounts[r.status]++;
+      });
+      const ctxStatus = document.getElementById('chartStatus').getContext('2d');
+      chartInstances.status = new Chart(ctxStatus, {
+        type: 'doughnut',
+        data: {
+          labels: ['Active', 'Inactive', 'Dead'],
+          datasets: [{
+            data: [statusCounts.Active, statusCounts.Inactive, statusCounts.Dead],
+            backgroundColor: [
+              dark ? '#10b981' : '#059669',
+              dark ? '#f59e0b' : '#d97706',
+              dark ? '#52525b' : '#a1a1aa'
+            ],
+            borderWidth: dark ? 2 : 1,
+            borderColor: dark ? '#18181b' : '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { color: textColor, font: { family: fontFamily, size: 11 }, boxWidth: 12, padding: 12 }
+            }
+          },
+          cutout: '68%'
+        }
+      });
+
+      // Chart 5: Timeline (Năm khởi tạo)
+      const yearCounts = {};
+      linuxRepos.forEach(r => {
+        const y = r.created ? r.created.slice(0, 4) : 'Khác';
+        yearCounts[y] = (yearCounts[y] || 0) + 1;
+      });
+      const sortedYears = Object.entries(yearCounts).sort((a, b) => a[0].localeCompare(b[0]));
+      const ctxTimeline = document.getElementById('chartTimeline').getContext('2d');
+      chartInstances.timeline = new Chart(ctxTimeline, {
+        type: 'bar',
+        data: {
+          labels: sortedYears.map(x => x[0]),
+          datasets: [{
+            data: sortedYears.map(x => x[1]),
+            backgroundColor: dark ? '#3b82f6' : '#2563eb',
+            borderRadius: 4,
+            barThickness: 24,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => ` ${ctx.raw} bộ gõ ra mắt`
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: gridColor },
+              ticks: { color: textColor, stepSize: 1, font: { family: fontFamily, size: 10 } }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { color: textColor, font: { family: fontFamily, size: 11 } }
+            }
+          }
+        }
+      });
+
+      // Chart 6: License Distribution (Doughnut)
+      const licCounts = {};
+      linuxRepos.forEach(r => {
+        const lic = r.license || 'Không rõ';
+        licCounts[lic] = (licCounts[lic] || 0) + 1;
+      });
+      const sortedLics = Object.entries(licCounts).sort((a, b) => b[1] - a[1]);
+      const ctxLicenses = document.getElementById('chartLicenses').getContext('2d');
+      chartInstances.licenses = new Chart(ctxLicenses, {
+        type: 'doughnut',
+        data: {
+          labels: sortedLics.map(x => x[0]),
+          datasets: [{
+            data: sortedLics.map(x => x[1]),
+            backgroundColor: ['#10b981', '#06b6d4', '#8b5cf6', '#f59e0b', '#ec4899', '#71717a'],
+            borderWidth: dark ? 2 : 1,
+            borderColor: dark ? '#18181b' : '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { color: textColor, font: { family: fontFamily, size: 11 }, boxWidth: 12, padding: 10 }
+            }
+          },
+          cutout: '68%'
+        }
+      });
+
+      // Chart 7: Commit Recency Breakdown (Bar)
+      const recencyGroups = {
+        '< 1 tháng': 0,
+        '1 - 6 tháng': 0,
+        '6 - 12 tháng': 0,
+        '> 1 năm': 0
+      };
+      linuxRepos.forEach(r => {
+        const d = r.days_since_push;
+        if (d === null || d === undefined) return;
+        if (d <= 30) recencyGroups['< 1 tháng']++;
+        else if (d <= 180) recencyGroups['1 - 6 tháng']++;
+        else if (d <= 365) recencyGroups['6 - 12 tháng']++;
+        else recencyGroups['> 1 năm']++;
+      });
+      const ctxRecency = document.getElementById('chartRecency').getContext('2d');
+      chartInstances.recency = new Chart(ctxRecency, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(recencyGroups),
+          datasets: [{
+            data: Object.values(recencyGroups),
+            backgroundColor: [
+              dark ? '#10b981' : '#059669',
+              dark ? '#38bdf8' : '#0284c7',
+              dark ? '#f59e0b' : '#d97706',
+              dark ? '#71717a' : '#a1a1aa'
+            ],
+            borderRadius: 4,
+            barThickness: 24,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => ` ${ctx.raw} dự án`
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: gridColor },
+              ticks: { color: textColor, stepSize: 1, font: { family: fontFamily, size: 10 } }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { color: textColor, font: { family: fontFamily, size: 11 } }
+            }
+          }
+        }
+      });
+
+      // Chart 8: Top Maintainers (Horizontal Bar)
+      const maintCounts = {};
+      linuxRepos.forEach(r => {
+        if (r.maintainer) {
+          maintCounts[r.maintainer] = (maintCounts[r.maintainer] || 0) + 1;
+        }
+      });
+      const topMaintainers = Object.entries(maintCounts).sort((a, b) => b[1] - a[1]).slice(0, 7);
+      const ctxMaint = document.getElementById('chartMaintainers').getContext('2d');
+      chartInstances.maintainers = new Chart(ctxMaint, {
+        type: 'bar',
+        data: {
+          labels: topMaintainers.map(x => x[0]),
+          datasets: [{
+            data: topMaintainers.map(x => x[1]),
+            backgroundColor: dark ? '#ec4899' : '#db2777',
+            borderRadius: 4,
+            barThickness: 14,
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => ` ${ctx.raw} repository`
+              }
+            }
+          },
+          scales: {
+            x: {
+              beginAtZero: true,
+              grid: { color: gridColor },
+              ticks: { color: textColor, stepSize: 1, font: { family: fontFamily, size: 10 } }
+            },
+            y: {
+              grid: { display: false },
+              ticks: { color: textColor, font: { family: fontFamily, size: 11, weight: '500' } }
+            }
+          }
+        }
+      });
+    }
+
+    init();
+  </script>
+</body>
+</html>
