@@ -47,8 +47,8 @@ Trạng thái hoạt động của từng dự án được tính toán tự đ�
 ## Kế hoạch phát triển
 
 - [x] **Linux**: Hỗ trợ đầy đủ các bộ gõ Standalone Wayland, Fcitx5 và IBus.
-- [ ] **macOS (Đang cập nhật)**: Tích hợp các bộ gõ hỗ trợ macOS (OpenKey, EVKey, GoTiengViet...).
-- [ ] **Windows (Đang cập nhật)**: Tích hợp các bộ gõ hỗ trợ Windows (UniKey, EVKey, OpenKey...).
+- [x] **macOS**: Hỗ trợ các bộ gõ trên macOS (OpenKey, Gõ Nhanh...).
+- [x] **Windows**: Hỗ trợ các bộ gõ trên Windows (OpenKey, Gõ Nhanh...).
 
 ---
 

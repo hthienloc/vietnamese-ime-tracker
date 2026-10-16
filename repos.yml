@@ -51,6 +51,24 @@
   framework: Fcitx5 / IBus
   maintainer: Funput
   os: Linux
+- name: Gõ Nhanh
+  url: https://github.com/khaphanspace/gonhanh.org
+  framework: Fcitx5
+  license: BSD-3-Clause
+  maintainer: Kha Phan
+  os: Linux
+- name: Gõ Nhanh
+  url: https://github.com/khaphanspace/gonhanh.org
+  framework: macOS Native
+  license: BSD-3-Clause
+  maintainer: Kha Phan
+  os: macOS
+- name: Gõ Nhanh
+  url: https://github.com/khaphanspace/gonhanh.org
+  framework: Windows Native
+  license: BSD-3-Clause
+  maintainer: Kha Phan
+  os: Windows
 - name: ibus-bamboo
   url: https://github.com/BambooEngine/ibus-bamboo
   framework: IBus
@@ -71,6 +89,18 @@
   framework: Fcitx5
   maintainer: Phi Nguyễn
   os: Linux
+- name: OpenKey
+  url: https://github.com/tuyenvm/OpenKey
+  framework: macOS Native
+  license: GPL-3.0
+  maintainer: Mai Vũ Tuyên
+  os: macOS
+- name: OpenKey
+  url: https://github.com/tuyenvm/OpenKey
+  framework: Windows Native
+  license: GPL-3.0
+  maintainer: Mai Vũ Tuyên
+  os: Windows
 - name: pinakey
   url: https://github.com/trananhtung/pinakey
   framework: IBus

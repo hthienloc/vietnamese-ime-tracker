@@ -72,10 +72,10 @@
           Linux (<span id="linuxCount">0</span>)
         </button>
         <button class="os-tab px-3 py-1 rounded text-xs font-medium text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 transition" data-os="macOS">
-          macOS <span class="text-[10px] text-zinc-400 dark:text-zinc-500 uppercase tracking-wider ml-1">Planned</span>
+          macOS (<span id="macosCount">0</span>)
         </button>
         <button class="os-tab px-3 py-1 rounded text-xs font-medium text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 transition" data-os="Windows">
-          Windows <span class="text-[10px] text-zinc-400 dark:text-zinc-500 uppercase tracking-wider ml-1">Planned</span>
+          Windows (<span id="windowsCount">0</span>)
         </button>
       </div>
 
@@ -461,7 +461,11 @@
       }
 
       const linuxList = repoData.filter(r => (r.os || 'Linux') === 'Linux');
+      const macosList = repoData.filter(r => r.os === 'macOS');
+      const windowsList = repoData.filter(r => r.os === 'Windows');
       document.getElementById('linuxCount').textContent = linuxList.length;
+      document.getElementById('macosCount').textContent = macosList.length;
+      document.getElementById('windowsCount').textContent = windowsList.length;
 
       // Pre-populate all column filter dropdowns immediately
       populateAllMenus();
@@ -526,9 +530,13 @@
           const plannedBanner = document.getElementById('plannedBanner');
           const activeContent = document.getElementById('activeContent');
 
-          if (currentOS === 'Linux') {
+          const currentList = repoData.filter(r => (r.os || 'Linux') === currentOS);
+          if (currentList.length > 0) {
             plannedBanner.classList.add('hidden');
             activeContent.classList.remove('hidden');
+            Object.keys(filters).forEach(k => filters[k] = null);
+            updateResetButtonVisibility();
+            populateAllMenus(true);
             if (currentView === 'table') renderTable();
             else renderCharts();
           } else {

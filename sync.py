@@ -136,6 +136,8 @@ def main():
     csv_rows = []
     items_for_json = []
 
+    api_cache = {}
+
     for entry in entries:
         name = str(entry.get("name", "")).strip()
         url = str(entry.get("url", "")).strip()
@@ -161,8 +163,14 @@ def main():
         status = "Active"
 
         if owner and repo_name:
-            print(f"  -> Fetching {owner}/{repo_name}...", end=" ", flush=True)
-            meta = fetch_repo_meta(owner, repo_name, token)
+            repo_key = f"{owner}/{repo_name}".lower()
+            if repo_key in api_cache:
+                meta = api_cache[repo_key]
+                print(f"  -> Using in-memory response for {owner}/{repo_name}...", end=" ", flush=True)
+            else:
+                print(f"  -> Fetching {owner}/{repo_name}...", end=" ", flush=True)
+                meta = fetch_repo_meta(owner, repo_name, token)
+                api_cache[repo_key] = meta
 
             if meta and "error" in meta and meta.get("status_code") == 404:
                 print("DELETED/404 (restored from cache)")
