@@ -89,6 +89,12 @@
   framework: Fcitx5
   maintainer: Phi Nguyễn
   os: Linux
+- name: NepKey
+  url: https://github.com/todo-laterx/nepkey
+  framework: IBus
+  license: GPL-3.0
+  maintainer: Thanh Tuấn
+  os: Linux
 - name: OpenKey
   url: https://github.com/tuyenvm/OpenKey
   framework: macOS Native
@@ -159,6 +165,24 @@
   url: https://github.com/vndangkhoa/vietc
   framework: Standalone (Wayland)
   maintainer: Võ Đăng Khoa
+  os: Linux
+- name: VieLotus IM
+  url: https://github.com/stevedat/VieLotus-IM
+  framework: macOS Native
+  license: MIT
+  maintainer: Dat
+  os: macOS
+- name: VieLotus IM
+  url: https://github.com/stevedat/VieLotus-IM
+  framework: Windows Native
+  license: MIT
+  maintainer: Dat
+  os: Windows
+- name: VieLotus IM
+  url: https://github.com/stevedat/VieLotus-IM
+  framework: Fcitx5 / IBus
+  license: MIT
+  maintainer: Dat
   os: Linux
 - name: VMK
   url: https://github.com/thanhpy2009/VMK

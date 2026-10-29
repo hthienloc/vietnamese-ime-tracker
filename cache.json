@@ -1,6 +1,6 @@
 {
   "https://github.com/BambooEngine/ibus-bamboo": {
-    "stars": 1507,
+    "stars": 1508,
     "language": "Go",
     "license": "GPL-3.0",
     "created": "2018-09-24",
@@ -8,21 +8,21 @@
     "description": "Bộ gõ tiếng Việt cho Linux",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/LotusInputMethod/fcitx5-lotus": {
-    "stars": 518,
+    "stars": 523,
     "language": "C++",
     "license": "GPL-3.0",
     "created": "2026-02-17",
-    "last_update": "2026-10-25",
+    "last_update": "2026-10-28",
     "description": "Bộ gõ tiếng Việt cho Linux mã nguồn mở, hướng đến trải nghiệm gõ không gạch chân mượt mà",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/fcitx/fcitx5-unikey": {
-    "stars": 131,
+    "stars": 130,
     "language": "C++",
     "license": "GPL-3.0",
     "created": "2019-10-22",
@@ -30,10 +30,10 @@
     "description": "",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/ubuntu2310fake/Unikey-Wayland": {
-    "stars": 102,
+    "stars": 101,
     "language": "Makefile",
     "license": "GPL-3.0",
     "created": "2026-07-07",
@@ -41,10 +41,10 @@
     "description": "",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/thanhpy2009/VMK": {
-    "stars": 100,
+    "stars": 101,
     "language": "C++",
     "license": "GPL-3.0",
     "created": "2026-01-02",
@@ -52,7 +52,7 @@
     "description": "Phần mềm gõ tiếng việt VMK",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/fcitx/fcitx5-bamboo": {
     "stars": 76,
@@ -63,7 +63,7 @@
     "description": "",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/vndangkhoa/vietc": {
     "stars": 59,
@@ -74,40 +74,40 @@
     "description": "A modern Vietnamese Input Method Engine (IME) for Linux with direct Unicode input—no pre-edit buffer, no underlines.",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/Funput/Funput": {
     "stars": 52,
     "language": "Kotlin",
     "license": "MIT",
     "created": "2026-06-14",
-    "last_update": "2026-10-25",
+    "last_update": "2026-10-27",
     "description": "Vietnamese input method for macOS, Windows & Linux. Keyboard for iOS & Android. • Bộ gõ tiếng Việt đa nền tảng cho macOS, Windows & Linux. Bàn phím tiếng Việt cho iOS & Android.",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/collyn/skey": {
     "stars": 27,
     "language": "C++",
     "license": "GPL-3.0",
     "created": "2026-06-29",
-    "last_update": "2026-10-25",
+    "last_update": "2026-10-29",
     "description": "",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/xhkzeroone/ArecaIME": {
     "stars": 20,
-    "language": "C++",
+    "language": "HTML",
     "license": "MIT",
     "created": "2026-07-31",
-    "last_update": "2026-10-25",
+    "last_update": "2026-10-29",
     "description": "Bộ gõ tiếng việt dành riêng cho linux",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/dismonjames/UniLume": {
     "stars": 11,
@@ -118,18 +118,18 @@
     "description": "Bộ gõ tiếng Việt hiện đại, nhẹ và nhanh cho Linux, phát triển trực tiếp từ lõi UniKey.",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/ngosen/ngosen": {
-    "stars": 39,
+    "stars": 50,
     "language": "C++",
     "license": "GPL-3.0",
     "created": "2026-10-10",
-    "last_update": "2026-10-26",
+    "last_update": "2026-10-29",
     "description": "Bộ gõ tiếng Việt tối ưu cho Linux, cho trải nghiệm gõ như UniKey trên Windows",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/thatislg/BambooMintKey": {
     "stars": 10,
@@ -140,7 +140,7 @@
     "description": "A zero-dependency, high-performance cross-platform Vietnamese IME for Windows, macOS & Linux powered by .NET 10, F# and NativeAOT",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/sonnam0904/telebit": {
     "stars": 8,
@@ -151,29 +151,29 @@
     "description": "Telebit - Vietnamese Telex engine - C++ core và addon fcitx5 cho Linux",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/hunglinhpt/TextVN": {
     "stars": 9,
     "language": "Rust",
     "license": "GPL-3.0",
     "created": "2026-09-26",
-    "last_update": "2026-10-26",
+    "last_update": "2026-10-28",
     "description": "Bộ gõ tiếng việt tương thích window, macos, linux",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/nhanth87/vi-ime": {
     "stars": 7,
     "language": "Rust",
     "license": "GPL-3.0",
     "created": "2026-07-10",
-    "last_update": "2026-10-24",
+    "last_update": "2026-10-28",
     "description": "Bộ gõ tiếng Việt cho Wayland (niri/Hyprland/Sway/COSMIC) — zero-config, không qua IBus/Fcitx",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/chiconcota/fcitx5-lilypad": {
     "stars": 6,
@@ -184,18 +184,18 @@
     "description": "Bộ gõ Tiếng Việt siêu mượt cho Linux — Triệt hạ 100% lỗi nuốt chữ, lặp từ & vỡ con trỏ trên Web & Electron Apps (Messenger, Chrome, VS Code)",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/trananhtung/pinakey": {
     "stars": 7,
     "language": "Rust",
     "license": "",
     "created": "2026-06-19",
-    "last_update": "2026-10-16",
+    "last_update": "2026-10-28",
     "description": "PinaKey - bộ gõ tiếng Việt cho Linux/IBus, viết bằng Rust thuần (Telex/VNI/VIQR)",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/vithanhlam/TypeVN": {
     "stars": 3,
@@ -206,7 +206,7 @@
     "description": "TypeVN — fast Vietnamese Telex/VNI input method for Ubuntu (IBus)",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/versenilvis/ClakIME": {
     "stars": 2,
@@ -217,7 +217,7 @@
     "description": "Bộ gõ Tiếng Việt dành cho Linux cuối cùng mà bạn sẽ dùng (Lưu ý: trước phiên bản 1.0.0, tất cả đều là phiên bản chưa chính thức)",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/LumeWorks/CanType/": {
     "stars": 1,
@@ -228,7 +228,7 @@
     "description": "CanType - bộ gõ tiếng Việt cho Linux và Windows, dùng chung lõi Cadence",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/furimeo/senkey": {
     "stars": 0,
@@ -238,8 +238,8 @@
     "last_update": "2026-10-11",
     "description": "Bộ gõ tiếng Việt độc lập dành cho Linux.",
     "archived": false,
-    "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "deleted": true,
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/quannguyen247/Unikey-Wayland-Final": {
     "stars": 1,
@@ -250,7 +250,7 @@
     "description": "",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/marixdev/vnkey": {
     "stars": 101,
@@ -261,7 +261,7 @@
     "description": "Bộ gõ tiếng Việt đa nền tảng  Vietnamese IME for Windows, macOS, Linux (Fcitx5/IBus). Engine viết bằng Rust.",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/LotusInputEngine/ibus-lotus": {
     "stars": 118,
@@ -272,7 +272,7 @@
     "description": "A Vietnamese IME for Linux. Fork of ibus-bamboo",
     "archived": true,
     "deleted": true,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/nguyenphivn/LotusVibe": {
     "stars": 6,
@@ -283,7 +283,7 @@
     "description": "Bộ gõ tiếng Việt tối ưu cho Linux",
     "archived": true,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/tollaai2212hp22-lgtm/codekeyvn": {
     "stars": 7,
@@ -294,18 +294,18 @@
     "description": "Bộ gõ tiếng Việt (đã xóa)",
     "archived": false,
     "deleted": true,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/khaphanspace/gonhanh.org": {
-    "stars": 773,
+    "stars": 772,
     "language": "Rust",
     "license": "BSD-3-Clause",
     "created": "2025-12-06",
-    "last_update": "2026-10-26",
+    "last_update": "2026-10-29",
     "description": "Gõ Nhanh - Bộ gõ tiếng Việt hiện đại, hiệu suất cao dành cho macOS.",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
   },
   "https://github.com/tuyenvm/OpenKey": {
     "stars": 969,
@@ -316,6 +316,28 @@
     "description": "Vietnamese Input for macOS, Windows and Linux - Bộ gõ Tiếng Việt nguồn mở đa nền tảng",
     "archived": false,
     "deleted": false,
-    "last_synced": "2026-10-26 03:31:44 UTC"
+    "last_synced": "2026-10-29 07:35:12 UTC"
+  },
+  "https://github.com/todo-laterx/nepkey": {
+    "stars": 2,
+    "language": "Go",
+    "license": "GPL-3.0",
+    "created": "2026-10-25",
+    "last_update": "2026-10-27",
+    "description": "NepKey - Vietnamese input method for Linux (IBus)",
+    "archived": false,
+    "deleted": false,
+    "last_synced": "2026-10-29 07:35:12 UTC"
+  },
+  "https://github.com/stevedat/VieLotus-IM": {
+    "stars": 6,
+    "language": "Swift",
+    "license": "MIT",
+    "created": "2026-09-28",
+    "last_update": "2026-10-28",
+    "description": "Bộ gõ tiếng Việt Native cho macOS thuần Swift & Rust (InputMethodKit). Không gạch chân CJK, bảo toàn 100% Undo Cmd+Z, Zero-Logging.",
+    "archived": false,
+    "deleted": false,
+    "last_synced": "2026-10-29 07:35:12 UTC"
   }
 }
