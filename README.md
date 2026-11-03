@@ -1,6 +1,6 @@
 # Vietnamese IME Tracker
 
-Hệ thống tổng hợp, phân loại và tự động theo dõi trạng thái các bộ gõ tiếng Việt mã nguồn mở trên Linux, macOS và Windows.
+Hệ thống tổng hợp, phân loại và tự động theo dõi trạng thái các bộ gõ tiếng Việt mã nguồn mở trên Linux, macOS, Windows, Android và iOS.
 
 [![Sync Status](https://github.com/hthienloc/vietnamese-ime-tracker/actions/workflows/sync-and-deploy.yml/badge.svg)](https://github.com/hthienloc/vietnamese-ime-tracker/actions/workflows/sync-and-deploy.yml)
 [![Live Site](https://img.shields.io/badge/Web-Live_Dashboard-blue)](https://hthienloc.github.io/vietnamese-ime-tracker/)
@@ -49,6 +49,8 @@ Trạng thái hoạt động của từng dự án được tính toán tự đ�
 - [x] **Linux**: Hỗ trợ đầy đủ các bộ gõ Standalone Wayland, Fcitx5 và IBus.
 - [x] **macOS**: Hỗ trợ các bộ gõ trên macOS (OpenKey, Gõ Nhanh...).
 - [x] **Windows**: Hỗ trợ các bộ gõ trên Windows (OpenKey, Gõ Nhanh...).
+- [x] **Android**: Hỗ trợ các bộ gõ trên Android (Vikey...).
+- [x] **iOS**: Hỗ trợ các bộ gõ trên iOS (Vikey...).
 
 ---
 
@@ -65,9 +67,9 @@ Bạn có thể đề xuất bổ sung bộ gõ mới hoặc cập nhật thông
    ```yaml
    - name: Tên bộ gõ
      url: https://github.com/owner/repo
-     framework: Fcitx5  # Fcitx5, IBus, hoặc Standalone (Wayland)
+     framework: Fcitx5  # Ví dụ: Fcitx5, IBus, Android Native, iOS Native
      maintainer: Tên tác giả
-     os: Linux          # Linux, macOS, hoặc Windows
+     os: Linux          # Linux, macOS, Windows, Android, hoặc iOS
    ```
    *(Các thông số như Stars, License, Ngôn ngữ, Ngày cập nhật sẽ được bot tự động đồng bộ khi merge).*
 3. Tạo và gửi Pull Request.

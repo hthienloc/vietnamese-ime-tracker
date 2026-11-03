@@ -161,6 +161,36 @@
   license: GPL-3.0
   maintainer: Trần Hữu Nhân
   os: Linux
+- name: Vikey
+  url: https://github.com/tonyminibot/Vikey
+  framework: Android Native
+  license: GPL-3.0
+  maintainer: Tony Dinh (Đinh Quang Trung)
+  os: Android
+- name: Vikey
+  url: https://github.com/tonyminibot/Vikey
+  framework: iOS Native
+  license: GPL-3.0
+  maintainer: Tony Dinh (Đinh Quang Trung)
+  os: iOS
+- name: Vikey
+  url: https://github.com/tonyminibot/Vikey
+  framework: IBus
+  license: GPL-3.0
+  maintainer: Tony Dinh (Đinh Quang Trung)
+  os: Linux
+- name: Vikey
+  url: https://github.com/tonyminibot/Vikey
+  framework: macOS Native
+  license: GPL-3.0
+  maintainer: Tony Dinh (Đinh Quang Trung)
+  os: macOS
+- name: Vikey
+  url: https://github.com/tonyminibot/Vikey
+  framework: Windows Native
+  license: GPL-3.0
+  maintainer: Tony Dinh (Đinh Quang Trung)
+  os: Windows
 - name: vietc
   url: https://github.com/vndangkhoa/vietc
   framework: Standalone (Wayland)

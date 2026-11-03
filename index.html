@@ -67,7 +67,7 @@
 
     <!-- OS Tabs & View Toggle -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-zinc-200 dark:border-zinc-800/60">
-      <div class="flex items-center gap-1.5" id="osTabs">
+      <div class="flex flex-wrap items-center gap-1.5" id="osTabs">
         <button class="os-tab px-3 py-1 rounded text-xs font-medium bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100 transition" data-os="Linux">
           Linux (<span id="linuxCount">0</span>)
         </button>
@@ -76,6 +76,12 @@
         </button>
         <button class="os-tab px-3 py-1 rounded text-xs font-medium text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 transition" data-os="Windows">
           Windows (<span id="windowsCount">0</span>)
+        </button>
+        <button class="os-tab px-3 py-1 rounded text-xs font-medium text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 transition" data-os="Android">
+          Android (<span id="androidCount">0</span>)
+        </button>
+        <button class="os-tab px-3 py-1 rounded text-xs font-medium text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 transition" data-os="iOS">
+          iOS (<span id="iosCount">0</span>)
         </button>
       </div>
 
@@ -463,9 +469,13 @@
       const linuxList = repoData.filter(r => (r.os || 'Linux') === 'Linux');
       const macosList = repoData.filter(r => r.os === 'macOS');
       const windowsList = repoData.filter(r => r.os === 'Windows');
+      const androidList = repoData.filter(r => r.os === 'Android');
+      const iosList = repoData.filter(r => r.os === 'iOS');
       document.getElementById('linuxCount').textContent = linuxList.length;
       document.getElementById('macosCount').textContent = macosList.length;
       document.getElementById('windowsCount').textContent = windowsList.length;
+      document.getElementById('androidCount').textContent = androidList.length;
+      document.getElementById('iosCount').textContent = iosList.length;
 
       // Pre-populate all column filter dropdowns immediately
       populateAllMenus();

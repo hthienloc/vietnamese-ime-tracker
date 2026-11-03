@@ -2,22 +2,27 @@ Status,Repo Name,GitHub URL,Framework,Maintainer,Language,Stars,License,Last Upd
 Active,ibus-bamboo,https://github.com/BambooEngine/ibus-bamboo,IBus,Lương Thành Lam,Go,1509,GPL-3.0,2026-07-03,2018-09-24,Linux
 Active,OpenKey,https://github.com/tuyenvm/OpenKey,macOS Native,Mai Vũ Tuyên,C++,972,GPL-3.0,2026-06-15,2019-02-01,macOS
 Active,OpenKey,https://github.com/tuyenvm/OpenKey,Windows Native,Mai Vũ Tuyên,C++,972,GPL-3.0,2026-06-15,2019-02-01,Windows
-Active,Gõ Nhanh,https://github.com/khaphanspace/gonhanh.org,Fcitx5,Kha Phan,Rust,774,BSD-3-Clause,2026-11-02,2025-12-06,Linux
-Active,Gõ Nhanh,https://github.com/khaphanspace/gonhanh.org,macOS Native,Kha Phan,Rust,774,BSD-3-Clause,2026-11-02,2025-12-06,macOS
-Active,Gõ Nhanh,https://github.com/khaphanspace/gonhanh.org,Windows Native,Kha Phan,Rust,774,BSD-3-Clause,2026-11-02,2025-12-06,Windows
-Active,fcitx5-lotus,https://github.com/LotusInputMethod/fcitx5-lotus,Fcitx5,Nguyễn Hoàng Kỳ,C++,522,GPL-3.0,2026-10-31,2026-02-17,Linux
+Active,Gõ Nhanh,https://github.com/khaphanspace/gonhanh.org,Fcitx5,Kha Phan,Rust,775,BSD-3-Clause,2026-11-02,2025-12-06,Linux
+Active,Gõ Nhanh,https://github.com/khaphanspace/gonhanh.org,macOS Native,Kha Phan,Rust,775,BSD-3-Clause,2026-11-02,2025-12-06,macOS
+Active,Gõ Nhanh,https://github.com/khaphanspace/gonhanh.org,Windows Native,Kha Phan,Rust,775,BSD-3-Clause,2026-11-02,2025-12-06,Windows
+Active,fcitx5-lotus,https://github.com/LotusInputMethod/fcitx5-lotus,Fcitx5,Nguyễn Hoàng Kỳ,C++,524,GPL-3.0,2026-11-02,2026-02-17,Linux
+Active,Vikey,https://github.com/tonyminibot/Vikey,Android Native,Tony Dinh (Đinh Quang Trung),C,222,GPL-3.0,2026-11-02,2026-10-27,Android
+Active,Vikey,https://github.com/tonyminibot/Vikey,iOS Native,Tony Dinh (Đinh Quang Trung),C,222,GPL-3.0,2026-11-02,2026-10-27,iOS
+Active,Vikey,https://github.com/tonyminibot/Vikey,IBus,Tony Dinh (Đinh Quang Trung),C,222,GPL-3.0,2026-11-02,2026-10-27,Linux
+Active,Vikey,https://github.com/tonyminibot/Vikey,macOS Native,Tony Dinh (Đinh Quang Trung),C,222,GPL-3.0,2026-11-02,2026-10-27,macOS
+Active,Vikey,https://github.com/tonyminibot/Vikey,Windows Native,Tony Dinh (Đinh Quang Trung),C,222,GPL-3.0,2026-11-02,2026-10-27,Windows
 Active,fcitx5-unikey,https://github.com/fcitx/fcitx5-unikey,Fcitx5,Weng Xuetian,C++,131,GPL-3.0,2026-09-06,2019-10-22,Linux
 Active,VMK,https://github.com/thanhpy2009/VMK,Fcitx5,Võ Ngô Hoàng Thành,C++,102,GPL-3.0,2026-09-20,2026-01-02,Linux
 Active,Unikey-Wayland,https://github.com/ubuntu2310fake/Unikey-Wayland,Standalone (Wayland),Trương Hiếu (Phake?),Makefile,101,GPL-3.0,2026-10-01,2026-07-07,Linux
 Active,fcitx5-bamboo,https://github.com/fcitx/fcitx5-bamboo,Fcitx5,Weng Xuetian,C++,76,GPL-3.0,2026-09-06,2022-06-04,Linux
 Active,vietc,https://github.com/vndangkhoa/vietc,Standalone (Wayland),Võ Đăng Khoa,Rust,60,MIT,2026-10-06,2026-06-29,Linux
-Active,Funput,https://github.com/Funput/Funput,Fcitx5 / IBus,Funput,Kotlin,52,MIT,2026-10-31,2026-06-14,Linux
-Active,Ngó Sen,https://github.com/ngosen/ngosen,Fcitx5,Phi Nguyễn,C++,51,GPL-3.0,2026-11-02,2026-10-10,Linux
-Active,skey,https://github.com/collyn/skey,Fcitx5,Nguyễn Tiến Huy,C++,29,GPL-3.0,2026-10-31,2026-06-29,Linux
+Active,Funput,https://github.com/Funput/Funput,Fcitx5 / IBus,Funput,Kotlin,52,MIT,2026-11-02,2026-06-14,Linux
+Active,Ngó Sen,https://github.com/ngosen/ngosen,Fcitx5,Phi Nguyễn,C++,52,GPL-3.0,2026-11-03,2026-10-10,Linux
+Active,skey,https://github.com/collyn/skey,Fcitx5,Nguyễn Tiến Huy,C++,29,GPL-3.0,2026-11-02,2026-06-29,Linux
 Active,Areca IME,https://github.com/xhkzeroone/ArecaIME,Fcitx5,Hồng Kim Xuân,HTML,20,MIT,2026-11-02,2026-07-31,Linux
 Active,UniLume,https://github.com/dismonjames/UniLume,Fcitx5,Lê Hùng Quang Minh,Makefile,11,,2026-08-07,2026-07-23,Linux
-Active,BambooMintKey,https://github.com/thatislg/BambooMintKey,Fcitx5,Dương Gia Long,C#,10,MIT,2026-10-30,2026-09-01,Linux
-Active,TextVN,https://github.com/hunglinhpt/TextVN,Fcitx5 / IBus,Linh Bùi,Rust,9,GPL-3.0,2026-10-31,2026-09-26,Linux
+Active,BambooMintKey,https://github.com/thatislg/BambooMintKey,Fcitx5,Dương Gia Long,C#,10,MIT,2026-11-03,2026-09-01,Linux
+Active,TextVN,https://github.com/hunglinhpt/TextVN,Fcitx5 / IBus,Linh Bùi,Rust,9,GPL-3.0,2026-11-03,2026-09-26,Linux
 Active,telebit,https://github.com/sonnam0904/telebit,Fcitx5,Nguyễn Sơn (Nam?),C++,8,MIT,2026-09-15,2026-03-11,Linux
 Active,pinakey,https://github.com/trananhtung/pinakey,IBus,Trần Anh Tùng,Rust,7,,2026-10-31,2026-06-19,Linux
 Active,vi-ime,https://github.com/nhanth87/vi-ime,Standalone (Wayland),Trần Hữu Nhân,Rust,7,GPL-3.0,2026-10-28,2026-07-10,Linux
@@ -25,8 +30,8 @@ Active,VieLotus IM,https://github.com/stevedat/VieLotus-IM,macOS Native,Dat,C++,
 Active,VieLotus IM,https://github.com/stevedat/VieLotus-IM,Windows Native,Dat,C++,7,MIT,2026-11-02,2026-09-28,Windows
 Active,VieLotus IM,https://github.com/stevedat/VieLotus-IM,Fcitx5 / IBus,Dat,C++,7,MIT,2026-11-02,2026-09-28,Linux
 Active,fcitx5-lilypad,https://github.com/chiconcota/fcitx5-lilypad,Fcitx5,Lý Tất Thành,C++,6,GPL-3.0,2026-10-31,2026-08-02,Linux
+Active,Clak,https://github.com/versenilvis/ClakIME,Fcitx5,VERSE,Rust,3,0BSD,2026-10-31,2026-10-01,Linux
 Active,TypeVN,https://github.com/vithanhlam/TypeVN,IBus,Lâm Văn Vi,Rust,3,MIT,2026-10-29,2026-08-16,Linux
-Active,Clak,https://github.com/versenilvis/ClakIME,Fcitx5,VERSE,Rust,2,0BSD,2026-10-31,2026-10-01,Linux
 Active,NepKey,https://github.com/todo-laterx/nepkey,IBus,Thanh Tuấn,Go,2,GPL-3.0,2026-10-27,2026-10-25,Linux
 Active,CanType,https://github.com/LumeWorks/CanType/,Fcitx5,Lê Hùng Quang Minh,Rust,1,MPL-2.0,2026-08-08,2026-08-05,Linux
 Active,Unikey-Wayland-Final,https://github.com/quannguyen247/Unikey-Wayland-Final,Standalone (Wayland),Quan Nguyen,Makefile,1,GPL-3.0,2026-10-24,2026-08-18,Linux

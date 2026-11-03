@@ -38,6 +38,8 @@ body:
         - Standalone (X11)
         - macOS Native
         - Windows Native
+        - Android Native
+        - iOS Native
         - Other / Cross-platform
     validations:
       required: true
@@ -59,6 +61,8 @@ body:
         - label: Linux
         - label: macOS
         - label: Windows
+        - label: Android
+        - label: iOS
 
   - type: textarea
     id: notes
